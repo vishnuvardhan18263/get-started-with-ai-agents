@@ -4,8 +4,8 @@ import re
 from dotenv import load_dotenv
 import os
 
-load_dotenv()  # Loads variables from .env
-# load_dotenv(dotenv_path=os.path.join(os.getcwd(), ".env"))
+# load_dotenv()  # Loads variables from .env
+load_dotenv(dotenv_path=os.path.join(os.getcwd(), "vault.env"))
 
 endpoint = os.getenv("AZURE_ENDPOINT")
 subscription_id = os.getenv("AZURE_SUBSCRIPTION_ID")

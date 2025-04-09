@@ -4,14 +4,15 @@ import re
 from dotenv import load_dotenv
 import os
 
-# load_dotenv()  # Loads variables from .env
-load_dotenv(dotenv_path=os.path.join(os.getcwd(), ".env"))
+load_dotenv()  # Loads variables from .env
+# load_dotenv(dotenv_path=os.path.join(os.getcwd(), ".env"))
 
 endpoint = os.getenv("AZURE_ENDPOINT")
 subscription_id = os.getenv("AZURE_SUBSCRIPTION_ID")
 resource_group = os.getenv("AZURE_RESOURCE_GROUP")
 project_name = os.getenv("AZURE_PROJECT_NAME")
-
+agent_id = os.getenv("AZURE_AGENT_ID")
+thread_id = os.getenv("AZURE_THREAD_ID")
 # Authenticate using API key
 credential = InteractiveBrowserCredential()
 
@@ -26,9 +27,9 @@ project_client = AIProjectClient(
     project_name=project_name
 )
 
-agent = project_client.agents.get_agent("asst_*")
+agent = project_client.agents.get_agent(agent_id)
 
-thread = project_client.agents.get_thread("thread_*")
+thread = project_client.agents.get_thread(thread_id)
 
 # Send a message to the agent
 project_client.agents.create_message(
@@ -39,8 +40,8 @@ project_client.agents.create_message(
 
 # Trigger the agent run
 run = project_client.agents.create_and_process_run(
-        agent_id="asst_*",
-        thread_id="thread_j*"
+        agent_id=agent_id,
+        thread_id=thread_id
 )
 
 # Get the responses
